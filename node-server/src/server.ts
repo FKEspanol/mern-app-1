@@ -1,0 +1,24 @@
+import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+
+import connectDB from "./config/dbConfig";
+import { errorLogs, requestLogs } from "./middleware/logger";
+
+const app = express();
+
+connectDB();
+
+app.use(cors());
+app.use(requestLogs);
+app.use(express.json());
+app.use(errorLogs);
+
+mongoose.connection.once("open", () => {
+    const PORT = process.env.SERVER_PORT || 8000;
+
+    console.log("Connected to MongoDB");
+    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+});
