@@ -8,34 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const bcrypt_1 = __importDefault(require("bcrypt"));
 const Model_1 = require("../models/Model");
 exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, email, password, firstName, lastName } = req.body;
-        const hashedPassword = bcrypt_1.default.hashSync(password, bcrypt_1.default.genSaltSync(10));
-        const newUser = yield new Model_1.User({
-            username,
-            email,
-            password: hashedPassword,
-            firstName,
-            lastName,
-            fullName: `${firstName} ${lastName}`,
-        }).save();
-        res.status(201).json({ newUser, type: "success" });
+        const user = yield Model_1.User.findOne({ email: req.body.email });
+        res.status(200).json(user);
     }
     catch (error) {
-        console.log(error);
-        res.status(500).json({
-            error: {
-                type: "ServerError",
-                msg: "Something went wrong in the server",
-                details: error,
-            },
-        });
+        res.status(500).json({ error });
     }
 });

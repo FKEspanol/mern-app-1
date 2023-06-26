@@ -24,6 +24,7 @@ export default async (req: Request, res: Response) => {
         res.status(500).json({
             error: {
                 type: "ServerError",
+                msg: "Something went wrong in the server",
                 details: error,
             },
         });

@@ -5,6 +5,7 @@ import {
     matchedData,
     ValidationError,
 } from "express-validator";
+import bcrypt from "bcrypt";
 import { User } from "../models/Model";
 
 class ExpressValidatorError extends Error {
@@ -22,7 +23,8 @@ const validateRegistrationData = [
         .isAlphanumeric()
         .withMessage("Username must be alphanumeric")
         .isLength({ min: 6 })
-        .withMessage("Username must be atleast 6 characters"),
+        .withMessage("Username must be atleast 6 characters")
+        .escape(),
 
     body("email")
         .notEmpty()
@@ -86,9 +88,82 @@ const validateRegistrationData = [
                 error.name === "ExpressValidatorError"
             ) {
                 res.status(400).json({ errors: error.errors });
+            } else {
+                res.status(500).json({ error });
             }
         }
     },
 ];
 
-export { validateRegistrationData };
+const validateLoginData = [
+    body("email").notEmpty().withMessage("Enter your email"),
+
+    body("password").notEmpty().withMessage("Enter your password"),
+
+    async (req: Request, res: Response, next: Function) => {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                throw new ExpressValidatorError(
+                    errors.array({ onlyFirstError: true })
+                );
+            } else {
+                const data = matchedData(req);
+                const emailExist = await User.findOne({ email: data?.email });
+
+                if (!emailExist) {
+                    const errors: Array<ValidationError> = [
+                        {
+                            type: "field",
+                            msg: "That email is not registered",
+                            path: "email",
+                            location: "body",
+                            value: data?.email,
+                        },
+                    ];
+
+                    throw new ExpressValidatorError(errors);
+                } else {
+                    const passwordMatched = await bcrypt.compare(
+                        data?.password,
+                        emailExist.password as string
+                    );
+                    if (!passwordMatched) {
+                        const errors: Array<ValidationError> = [
+                            {
+                                type: "field",
+                                msg: "Password do not match",
+                                path: "password",
+                                location: "body",
+                                value: data?.email,
+                            },
+                        ];
+
+                        throw new ExpressValidatorError(errors);
+                    }
+
+                    next();
+                }
+            }
+        } catch (error) {
+            if (
+                error instanceof ExpressValidatorError &&
+                error.name === "ExpressValidatorError"
+            ) {
+                res.status(400).json({ errors: error.errors });
+            } else {
+                res.status(500).json({
+                    errors: [
+                        {
+                            type: "ServerError",
+                            msg: "Something went wrong in the server",
+                            details: error,
+                        },
+                    ],
+                });
+            }
+        }
+    },
+];
+
+export { validateRegistrationData, validateLoginData };

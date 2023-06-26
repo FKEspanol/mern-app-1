@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import connectDB from "./config/dbConfig";
 import { errorLogs, requestLogs } from "./middleware/logger";
 import createUserRoute from "./routes/createUserRoute";
+import loginUserRoute from "./routes/loginUserRoute";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(errorLogs);
 
 app.use("/", createUserRoute);
+app.use("/", loginUserRoute);
 
 mongoose.connection.once("open", () => {
     const PORT = process.env.SERVER_PORT || 8000;
