@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 
 import connectDB from "./config/dbConfig";
 import { errorLogs, requestLogs } from "./middleware/logger";
+import createUserRoute from "./routes/createUserRoute";
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(cors());
 app.use(requestLogs);
 app.use(express.json());
 app.use(errorLogs);
+
+app.use("/", createUserRoute);
 
 mongoose.connection.once("open", () => {
     const PORT = process.env.SERVER_PORT || 8000;
