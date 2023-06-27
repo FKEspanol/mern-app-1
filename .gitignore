@@ -1,23 +1,23 @@
 node_modules/
 
-ReactApp/logs
-ReactApp/*.log
-ReactApp/npm-debug.log*
-ReactApp/yarn-debug.log*
-ReactApp/yarn-error.log*
-ReactApp/pnpm-debug.log*
-ReactApp/erna-debug.log*
+react-app/logs
+react-app/*.log
+react-app/npm-debug.log*
+react-app/yarn-debug.log*
+react-app/yarn-error.log*
+react-app/pnpm-debug.log*
+react-app/erna-debug.log*
 
-ReactApp/node_modules/
-ReactApp/dist/
-ReactApp/dist-ssr
-ReactApp/*.local
-ReactApp/.env
+react-app/node_modules/
+react-app/dist/
+react-app/dist-ssr
+react-app/*.local
+react-app/.env
 
 
-NodeServer/node_modules/
-NodeServer/logs/
-NodeServer/.env
+node-server/node_modules/
+node-server/logs/
+node-server/.env
 
 
 
