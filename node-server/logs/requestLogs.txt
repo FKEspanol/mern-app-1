@@ -192,3 +192,7 @@
 2023/5/27/3:33 PM	be34d85a-d8c1-4d36-9218-a00d9785c84d	GET	undefined	/homepage
 2023/5/27/4:8 PM	980647e9-c11f-486c-b0bc-71942ab95745	POST	undefined	/loginUser
 2023/5/27/4:9 PM	2cb0e1f7-9560-4f4a-aad4-0ba41a873bfc	POST	undefined	/loginUser
+2023/5/27/4:18 PM	a7e82dfb-a8e0-410d-ba88-2cf16af1d2f1	GET	undefined	/refresh
+2023/5/27/4:18 PM	56cb6a32-59d2-4238-9d92-7cc1a452cda6	GET	undefined	/logout
+2023/5/27/4:18 PM	18e59fcc-0a31-4254-a1c8-2184cafa00b3	GET	undefined	/refresh
+2023/5/27/4:18 PM	b388516c-b0b9-4e7b-8b88-06f40ebd80c4	GET	undefined	/homepage
