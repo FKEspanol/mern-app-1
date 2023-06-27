@@ -22,10 +22,10 @@ const Layout = () => {
                 </div>
                 <div className="flex justify-center items-center w-full bg-darkWhite px-3">
                     <div className="w-full sm:w-auto">
-                        <h2 className="text-4xl uppercase font-bold text-dark mb-10">
+                        <h2 className="text-4xl text-center uppercase font-bold text-dark mb-10">
                             Create User !
                         </h2>
-                        <form className="w-full sm:max-w-[450px] sm:min-w-[450px] flex flex-col">
+                        <form className="w-full sm:max-w-[500px] sm:min-w-[500px] flex flex-col p-8 sm:p-10 bg-white">
                             <div className="mb-6 grid sm:grid-cols-2">
                                 <div className="sm:mr-3">
                                     <label
