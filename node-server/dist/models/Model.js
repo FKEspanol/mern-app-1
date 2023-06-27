@@ -81,6 +81,7 @@ const userSchema = new mongoose_1.Schema({
         type: Date,
         default: Date.now,
     },
+    refreshToken: String,
 });
 // Define the Post schema
 const postSchema = new mongoose_1.Schema({

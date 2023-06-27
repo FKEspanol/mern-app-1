@@ -14,18 +14,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const Model_1 = require("../models/Model");
-exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const handleRefreshToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield Model_1.User.findOne({ email: req.body.email });
-        const accessToken = jsonwebtoken_1.default.sign({ _id: user === null || user === void 0 ? void 0 : user._id, username: user === null || user === void 0 ? void 0 : user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "5m" });
-        const refreshToken = jsonwebtoken_1.default.sign({ _id: user === null || user === void 0 ? void 0 : user._id, username: user === null || user === void 0 ? void 0 : user.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1d" });
-        yield Model_1.User.findByIdAndUpdate({ _id: user === null || user === void 0 ? void 0 : user._id }, { $set: { refreshToken } }); // Saving refreshToken with current user
-        res.cookie("jwt", refreshToken, {
-            httpOnly: true,
-            sameSite: "none",
-            secure: true,
-            maxAge: 24 * 60 * 60 * 1000,
-        });
+        const cookies = req.cookies;
+        if (!(cookies === null || cookies === void 0 ? void 0 : cookies.jwt))
+            return res.sendStatus(401);
+        console.log(cookies.jwt);
+        const refreshToken = cookies.jwt;
+        const user = yield Model_1.User.findOne({ refreshToken });
+        if (!user)
+            return res.sendStatus(403);
+        const decoded = jsonwebtoken_1.default.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+        console.log(decoded._id, user._id);
+        if (user._id.toString() !== decoded._id)
+            return res.sendStatus(403);
+        const accessToken = jsonwebtoken_1.default.sign({ _id: user._id, username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "60s" });
         res.status(200).json({ accessToken });
     }
     catch (error) {
@@ -38,3 +41,4 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
 });
+exports.default = handleRefreshToken;

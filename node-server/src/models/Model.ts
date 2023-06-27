@@ -14,6 +14,7 @@ interface IUser extends Document {
     followers: Array<Schema.Types.ObjectId | IUser>;
     following: Array<Schema.Types.ObjectId | IUser>;
     createdAt: Date;
+    refreshToken: String;
 }
 
 // Define the Post interface
@@ -90,6 +91,8 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
         type: Date,
         default: Date.now,
     },
+
+    refreshToken: String,
 });
 
 // Define the Post schema

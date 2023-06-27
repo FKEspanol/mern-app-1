@@ -7,5 +7,5 @@ const express_1 = __importDefault(require("express"));
 const validator_1 = require("../middleware/validator");
 const createUserController_1 = __importDefault(require("../controller/createUserController"));
 const router = express_1.default.Router();
-router.post("/createUser", validator_1.validateRegistrationData, createUserController_1.default);
+router.post("/", validator_1.validateRegistrationData, createUserController_1.default);
 exports.default = router;
