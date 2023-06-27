@@ -5,8 +5,8 @@ const LogInUser = () => {
     return (
         <div className="w-full h-screen">
             <div className="grid lg:grid-cols-2 h-full">
-                <div className="bg-dark flex justify-center items-center px-3">
-                    <div>
+                <div className="relative bg-dark px-3">
+                    <div className="absolute top-1/4 left-1/2 -translate-x-1/2">
                         <Icon
                             icon={people}
                             className="text-9xl text-primary mb-3"
