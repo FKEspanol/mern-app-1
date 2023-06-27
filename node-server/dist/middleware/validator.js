@@ -23,6 +23,20 @@ class ExpressValidatorError extends Error {
     }
 }
 const validateRegistrationData = [
+    (0, express_validator_1.body)("firstName")
+        .notEmpty()
+        .withMessage("First name is required")
+        .isAlpha()
+        .withMessage("First name must be letters only")
+        .isLength({ min: 2 })
+        .withMessage("First name must be at least 2 characters long"),
+    (0, express_validator_1.body)("lastName")
+        .notEmpty()
+        .withMessage("Last name is required")
+        .isAlpha()
+        .withMessage("Last name must be letters only")
+        .isLength({ min: 2 })
+        .withMessage("Last name must be at least 2 characters long"),
     (0, express_validator_1.body)("username")
         .notEmpty()
         .withMessage("Username is required")
@@ -41,20 +55,6 @@ const validateRegistrationData = [
         .withMessage("Password is required")
         .isLength({ min: 6 })
         .withMessage("Password must be at least 6 characters long"),
-    (0, express_validator_1.body)("firstName")
-        .notEmpty()
-        .withMessage("First name is required")
-        .isAlpha()
-        .withMessage("First name must be letters only")
-        .isLength({ min: 2 })
-        .withMessage("First name must be at least 2 characters long"),
-    (0, express_validator_1.body)("lastName")
-        .notEmpty()
-        .withMessage("Last name is required")
-        .isAlpha()
-        .withMessage("Last name must be letters only")
-        .isLength({ min: 2 })
-        .withMessage("Last name must be at least 2 characters long"),
     (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const errors = (0, express_validator_1.validationResult)(req);

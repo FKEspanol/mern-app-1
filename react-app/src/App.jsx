@@ -1,11 +1,14 @@
-import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import CreateUser from "./components/auth/CreateUser";
+import LogInUser from "./components/auth/LogInUser";
 
 function App() {
     return (
         <>
-            <h1 className="text-4xl text-red-500 uppercase font-bold">
-                Hello world
-            </h1>
+            <Routes>
+                <Route path="/" element={<LogInUser />} />
+                <Route path="/createUser" element={<CreateUser />} />
+            </Routes>
         </>
     );
 }

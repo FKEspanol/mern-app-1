@@ -17,6 +17,22 @@ class ExpressValidatorError extends Error {
 }
 
 const validateRegistrationData = [
+    body("firstName")
+        .notEmpty()
+        .withMessage("First name is required")
+        .isAlpha()
+        .withMessage("First name must be letters only")
+        .isLength({ min: 2 })
+        .withMessage("First name must be at least 2 characters long"),
+
+    body("lastName")
+        .notEmpty()
+        .withMessage("Last name is required")
+        .isAlpha()
+        .withMessage("Last name must be letters only")
+        .isLength({ min: 2 })
+        .withMessage("Last name must be at least 2 characters long"),
+
     body("username")
         .notEmpty()
         .withMessage("Username is required")
@@ -37,22 +53,6 @@ const validateRegistrationData = [
         .withMessage("Password is required")
         .isLength({ min: 6 })
         .withMessage("Password must be at least 6 characters long"),
-
-    body("firstName")
-        .notEmpty()
-        .withMessage("First name is required")
-        .isAlpha()
-        .withMessage("First name must be letters only")
-        .isLength({ min: 2 })
-        .withMessage("First name must be at least 2 characters long"),
-
-    body("lastName")
-        .notEmpty()
-        .withMessage("Last name is required")
-        .isAlpha()
-        .withMessage("Last name must be letters only")
-        .isLength({ min: 2 })
-        .withMessage("Last name must be at least 2 characters long"),
 
     async (req: Request, res: Response, next: Function) => {
         try {
