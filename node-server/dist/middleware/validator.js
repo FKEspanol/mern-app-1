@@ -86,7 +86,7 @@ const validateRegistrationData = [
                 res.status(400).json({ errors: error.errors });
             }
             else {
-                res.status(500).json({ error });
+                res.status(500).json({ errors: error });
             }
         }
     }),
