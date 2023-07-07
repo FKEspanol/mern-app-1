@@ -28,7 +28,7 @@ export default async (req: Request, res: Response) => {
             secure: true,
             maxAge: 24 * 60 * 60 * 1000,
         });
-        res.status(200).json({ accessToken });
+        res.status(200).json({ accessToken, user });
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({

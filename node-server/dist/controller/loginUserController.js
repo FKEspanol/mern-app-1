@@ -26,7 +26,7 @@ exports.default = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             secure: true,
             maxAge: 24 * 60 * 60 * 1000,
         });
-        res.status(200).json({ accessToken });
+        res.status(200).json({ accessToken, user });
     }
     catch (error) {
         if (error instanceof Error) {
