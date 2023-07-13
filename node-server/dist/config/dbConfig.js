@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        mongoose_1.default.connect(process.env.LOCAL_MONGODB_URI);
+        mongoose_1.default.connect(process.env.MONGODB_ATLAS_URI);
     }
     catch (error) {
         console.log(error);
