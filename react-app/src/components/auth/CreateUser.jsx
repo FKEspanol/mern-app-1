@@ -152,12 +152,12 @@ const Layout = () => {
                                     name="email"
                                     placeholder="Your Email"
                                 />
-                                {/* {errors && (
+                                {errors && (
                                     <ErrorMessage
                                         errors={errors}
                                         inputName="email"
                                     />
-                                )} */}
+                                )}
                             </div>
                             <div className="mb-6">
                                 <label
